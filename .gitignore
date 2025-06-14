@@ -18,12 +18,12 @@ desktop.ini
 ###############################################################################
 # 2. Archivos de configuración sensible
 ###############################################################################
-.env
-.env.*
-.env_*
+*.env
+*.env.*
+*.env_*
 !.env.example
-.env.backup
-.envrc
+*.env.backup
+*.envrc
 *.key
 *.pem
 *.p12
