@@ -1,0 +1,52 @@
+---
+// Frontmatter de Astro - aquí colocamos las importaciones y props
+import "../assets/css/reset-sanatize-normalize-boilerplate-min.css";
+import "../assets/css/main.css";
+import Head from "../components/Head.astro";
+import Scripts from "../components/Scripts.astro";
+import Loader from "../components/Loader.astro";
+import FadeOnScrollUtil from "../components/fx/FadeOnScrollUtil.svelte";
+
+// Props que pueden variar por página
+export interface Props {
+	title?: string;
+	description?: string;
+	canonicalUrl?: string;
+	ogImage?: string;
+	jsonLd?: object;
+	pageScripts?: string[];
+}
+
+const {
+	title = "SCA | especialistas en gestión ambiental empresarial",
+	description = "Descubre por qué dos sitios web nunca cuestan lo mismo, por donde iniciar tu cotización y por qué Juan Palma es tu socio ideal para tu proyecto, escalable y eficiente.",
+	canonicalUrl = "https://sca.cliente.work/",
+	ogImage = "https://idalibre.com/landing-page/sitios-web-juan-palma/assets/img/facebook_web_img_article.jpg",
+	jsonLd,
+	pageScripts = [],
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="no-js">
+	<head>
+		<Head {title} {description} {canonicalUrl} {ogImage} {jsonLd} />
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<!--<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GRM-NUMERO"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>-->
+		<!-- End Google Tag Manager (noscript) -->
+
+		<Loader />
+		<slot />
+
+		<script src="/js/librerias/fontawesome.js" defer></script>
+		<script src="/js/librerias/solid.min.js" defer></script>
+		<script src="/js/librerias/brands.min.js" defer></script>
+		<Scripts {pageScripts} />
+
+		<FadeOnScrollUtil client:load />
+	</body>
+</html>

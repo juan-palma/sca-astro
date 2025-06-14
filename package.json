@@ -9,6 +9,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.9.2"
+    "@astrojs/preact": "^4.1.0",
+    "@astrojs/sitemap": "^3.4.1",
+    "@astrojs/svelte": "^7.1.0",
+    "astro": "^5.9.2",
+    "gsap": "^3.13.0",
+    "preact": "^10.26.8"
   }
 }

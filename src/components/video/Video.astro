@@ -1,0 +1,59 @@
+---
+const {
+  type = 'local',      // 'local' | 'youtube' | 'external'
+  src,
+  poster = '',
+  autoplay = false,
+  loop = true,
+  muted = true,
+  playsinline = true,
+  width = '100%',
+  height = 'auto',
+  className = ''
+} = Astro.props;
+
+// Helper para YouTube
+function ytId(u) {
+  const m = u?.match(/(?:youtube\.com.*v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+---
+
+{type === 'local' && (
+  <video
+    src={src}
+    poster={poster}
+    {autoplay}
+    {loop}
+    {muted}
+    {playsinline}
+    width={width}
+    height={height}
+	class = {className}
+    loading="lazy"
+  />
+)}
+
+{type === 'youtube' && (
+  <iframe
+    src={`https://www.youtube.com/embed/${ytId(src)}?autoplay=${autoplay?1:0}&mute=${muted?1:0}&loop=${loop?1:0}&playlist=${ytId(src)}`}
+    width={width}
+    height={height}
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+	class = {className}
+    loading="lazy"
+  />
+)}
+
+{type === 'external' && (
+  <iframe
+    src={src}
+    width={width}
+    height={height}
+    frameborder="0"
+    allowfullscreen
+	class = {className}
+    loading="lazy"
+  />
+)}

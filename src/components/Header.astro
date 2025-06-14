@@ -1,0 +1,161 @@
+---
+import { Picture } from 'astro:assets';
+import FadeInOnScroll from '../components/fx/FadeInOnScroll.svelte';
+import Video from '../components/Video/Video.astro';
+import Slider from "../components/Slider/Slider.astro";
+
+import arbusto from '/src/assets/img/arbusto.webp';
+import slImg1 from '/src/assets/img/sliders/slide1.webp';
+import slImg2 from '/src/assets/img/sliders/slide2.webp';
+import slImg3 from '/src/assets/img/sliders/slide3.webp';
+
+import video from '/videos/video.mp4';
+
+//:::: DB sliders ::::
+const slidesData = [
+	{
+		img: slImg2,
+		title: "",
+		text: '<div class="textoPSlide"><span class="blanco">¿NO SABES<br>POR DÓNDE<br>COMENZAR?</span><br><span class="colorP">Comienza</span><br><span class="blanco"><span class="menos">CON</span><br>NOSOTROS</span></div>',
+		id: "",
+		class: "gasolineraText",
+	},
+	{
+		img: slImg1,
+		title: "",
+		text: '<div class="textoPSlide">Estamos contigo desde el inicio <br />y durante todo el proceso</div>',
+		id: "",
+		class: "slideSCA",
+		delay: 10000,
+	},
+	{
+		img: slImg3,
+		title: "",
+		text: '<div class="textoPSlide"><span class="azul">Cumplir es</span><br><span class="blanco">muy fácil</span><br><span class="azul">con el equipo</span><br><span class="blanco">correcto</span><div class="globo globoAzul btn-whatsapp" data-url="https://wa.me/+5215548400059"">Solicita una Auditoria de Cumplimiento Legal <span class="bold">SIN COSTO</span></div></div>',
+		id: "",
+		class: "manoAguaSlide",
+	},
+];
+
+---
+<style>
+	.sliderPortada {
+		z-index: 1;
+	}
+	#slider {
+		background-color: var(--colorSecundario);
+	}
+</style>
+<header>
+	<article class="boxSeccion" id="slider">
+		<div class="anchoFullFlex">
+			<!--Portada Static para LCP-->
+			<!--<div class="sliderPortada">
+				<picture>
+					<source 
+						media="(orientation: landscape) and (min-width: 1024px)" 
+						srcset={imgDesk.src}
+						type="image/avif">
+					<source 
+						media="(orientation: landscape) and (min-width: 768px)" 
+						srcset={imgTablet.src}
+						type="image/avif">
+					<source 
+						media="(orientation: landscape)" 
+						srcset={imgMobile.src}
+						type="image/avif">
+					
+					<source 
+						media="(orientation: portrait) and (min-width: 768px)" 
+						srcset={imgDeskV.src} 
+						type="image/webp">
+					<source 
+						media="(orientation: portrait) and (min-width: 480px)" 
+						srcset={imgTabletV.src} 
+						type="image/webp">
+					<source 
+						media="(orientation: portrait)" 
+						srcset={imgMobileV.src} 
+						type="image/webp">
+				
+					<img 
+						src={imgTablet.src} 
+						alt="Descripción de la imagen" 
+						loading="eager"
+						decoding="async"
+						width="100%"
+						height="100%"
+					>
+				</picture>
+			</div>-->
+
+
+			<!--Corte inferior para los slides-->
+			<picture class="slider-deco" aria-hidden="true">
+				<source srcset="/img/sliders/corte_slider_mobile.svg" media="(max-width: 767px)">
+				<img src="/img/sliders/corte_slider_desktop.svg" alt="corte decorativo slider" width="100%" height="auto" loading="eager" decoding="sync">
+			</picture>
+
+			
+			<Slider 
+				slides={slidesData}
+				defaultDelay={8000}
+				sliderId="heroSlider"
+			/>
+		</div>
+	</article>
+
+	<article class="boxSeccion" id="intro">
+		<div class="boxWrap">
+			<div class="capsula">
+				<div>
+					<figure class="onlyDesktop">
+						<FadeInOnScroll direccion="abajo" client:visible>
+							<Picture
+								src={arbusto}
+								formats={['avif', 'webp']}
+								alt="Arbusto"
+								loading="eager"
+							/>
+						</FadeInOnScroll>
+					</figure>
+				</div>
+				<div>
+					<h1>
+						En SCA somos especialistas en gestión ambiental
+						empresarial
+					</h1>
+					<figure class="onlyMobile">
+						<FadeInOnScroll direccion="abajo" client:visible>
+							<Picture
+								src={arbusto}
+								formats={['avif', 'webp']}
+								alt="Arbusto"
+								fallbackFormat="webp"
+							/>
+						</FadeInOnScroll>
+					</figure>
+					<p>
+						Nuestra prioridad es que <span class="semibold"
+							>cumplas con todas tus obligaciones ambientales sin
+							complicaciones</span
+						>, con impacto positivo y soluciones a la medida. Nos
+						involucramos de forma cercana, así que considéranos
+						parte de tu equipo.
+					</p>
+					<div
+						class="globo globoAzul btn-whatsapp"
+						data-url="https://wa.me/+5215548400059"
+					>
+						Solicita una Auditoria de <br />Cumplimiento Legal <span
+							class="bold">SIN COSTO</span
+						>
+					</div>
+				</div>
+			</div>
+			<div class="capsula">
+				<Video class="video-wrapper" type="local" src={video} autoplay muted />
+			</div>
+		</div>
+	</article>
+</header>

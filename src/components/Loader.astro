@@ -1,0 +1,46 @@
+---
+// Loader.astro
+const { showInitially = true } = Astro.props;
+---
+
+<div id="loadingBox" class={`loader ${showInitially ? "is-active" : ""}`}>
+	<img
+		src="/img/ajax.webp"
+		alt="Cargando contenido..."
+		width="40"
+		height="40"
+		loading="eager"
+	/>
+</div>
+
+<style>
+	.loader {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: rgba(255, 255, 255, 0.9);
+		z-index: 9999;
+		transition: opacity 0.3s ease-out;
+		pointer-events: none;
+	}
+
+	.loader:not(.is-active) {
+		opacity: 0;
+	}
+</style>
+
+<script is:inline>
+	// Eliminamos el loader cuando la página está lista
+	document.addEventListener("DOMContentLoaded", () => {
+		const loader = document.getElementById("loadingBox");
+		if (loader) {
+			loader.classList.remove("is-active");
+			setTimeout(() => {loader.classList.add("desaparece")}, 300); // Pequeño delay para suavizar la transición
+		}
+	});
+</script>

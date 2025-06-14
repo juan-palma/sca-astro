@@ -1,0 +1,12 @@
+---
+export interface Props {
+  pageScripts?: string[];
+}
+
+const { pageScripts = [] } = Astro.props;
+---
+
+{pageScripts.map(script => (
+  <script type="module" src={script}></script>
+))}
+

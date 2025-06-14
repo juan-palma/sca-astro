@@ -1,0 +1,64 @@
+---
+import {Picture} from 'astro:assets';
+import Slider from "../components/SliderT/Slider.astro";
+
+import naturaleza from '../assets/img/naturaleza-sca-consultoria-ambiental-ingeniera.webp';
+import slImg1 from '../../public/img/testimonios/t1.webp';
+import slImg2 from '../../public/img/testimonios/t2.webp';
+import slImg3 from '../../public/img/testimonios/t3.webp';
+
+//:::: DB sliders ::::
+const slidesData = [
+	{
+		img:slImg1,
+		title:'',
+		text:'<div class="textoPSlide">Tuvimos muchos problemas con los trámites de una estación de gasolina.<br/>Nos dijeron de una empresa que se encargaba de las “situaciones difíciles”. Desde ese entonces seguimos trabajando con el equipo de SCA.</div>',
+		nombre:"Julián Salazar",
+		puesto:"Director Área Legal",
+		"id":"",
+		"class":"slideSCA",
+		delay:8000,
+	},
+	{
+		img:slImg2,
+		title:'',
+		text:'<div class="textoPSlide">Llevamos un par de años trabajando con SCA porque ellos nos resuelven todo.<br>Sólo nos requieren para cosas muy puntuales, fuera de eso, dejamos todo en sus manos y ellos se encargan.</div>',
+		nombre:"Rebeca Olivares",
+		puesto:"Gerente de Trámites Legales",
+		"id":"",
+		"class":"slideSCA",
+		delay:8000
+	},
+	{
+		img:slImg3,
+		title:'',
+		text:'<div class="textoPSlide">Siempre sentimos que trabajar con las empresas de consultoría era complicado y nos acostumbramos a eso.<br>Hasta que nos recomendaron a SCA. Ellos se adaptaron a lo que necesitábamos, y ademas, te aconsejan en aspectos que pasas por alto.</div>',
+		nombre:"José Antonio Rubio",
+		puesto:"Gerente de Normatividad",
+		"id":"",
+		"class":"slideSCA",
+		delay:8000
+	}
+];
+---
+
+<article class="boxSeccion" id="testimonios">
+	<div class="boxWrap">
+		<div class="capsula">
+			<div class="foto">
+				<figure class="idaAniFade fadeInOnScroll" data-direccion="abajo">
+					<Picture src={naturaleza} alt="naturaleza" fallbackFormat="webp"/>
+				</figure>
+			</div>
+			<div id="testimoniosSLD">
+				<div id="testContent">
+					<Slider 
+						slides={slidesData}
+						defaultDelay={8000}
+						sliderId="testimoniosSlider"
+					/>
+				</div>
+			</div>
+		</div>
+	</div>
+</article>

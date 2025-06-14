@@ -1,0 +1,40 @@
+---
+import {Picture} from 'astro:assets';
+import hidocarburos from '../assets/img/sca-consultoria-ambiental-sector-hidrocarburos-arsh.webp';
+import industrial from '../assets/img/sca-consultoria-ambiental-sector-hidrocarburos-arsh-industrial-privado.webp';
+---
+
+<article class="boxSeccion" id="sectores">
+	<div class="boxWrap">
+		<div class="capsula">
+			<h2 class="titulo">Nuestros sectores</h2>
+			<div class="box">
+				<div class="col col1">
+					<figure class="idaAniFade fadeInOnScroll" data-direccion="izquierda">
+						<Picture src={hidocarburos} alt="Hidrocarburos" fallbackFormat="webp"/>
+					</figure>
+					<h3 class="titulo2">Sector hidrocarburos</h3>
+					<p>
+						Este es nuestro sector de especialización, en donde la
+						consultoría inicia hace 5 años, este marco regulatorio
+						es nuevo y en constante cambio para un sector
+						estratégico a nivel nacional e internacional.
+					</p>
+				</div>
+				<div class="col col2">
+					<figure class="idaAniFade fadeInOnScroll" data-direccion="derecha">
+						<Picture src={industrial} alt="Industrial" fallbackFormat="webp"/>
+					</figure>
+					<h3 class="titulo2">Sector industrial</h3>
+					<p>
+						La industria Federal cuenta con regulaciones específicas
+						de su competencia, nuestros profesionales cuentan con
+						los conocimientos y experiencia en cada ramo de gestión,
+						garantizando su cumplimiento ambiental ante las
+						autoridades competentes.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</article>

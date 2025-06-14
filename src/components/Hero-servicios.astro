@@ -1,0 +1,194 @@
+---
+import { Picture } from "astro:assets";
+import FadeInOnScroll from '../components/fx/FadeInOnScroll.svelte';
+
+import pulgar from "/src/assets/img/pulgar.webp";
+import certificaciones from "/src/assets/img/certificaciones.webp";
+import junta from "/src/assets/img/junta.webp";
+import chica from "/src/assets/img/chica.webp";
+import huella from "/src/assets/img/huella.webp";
+---
+
+<article class="boxSeccion" id="servicios">
+	<div id="spaceAgua"></div>
+	<div class="boxWrap">
+		<div class="capsula">
+			<h2 class="titulo">Nuestros Servicios</h2>
+			<h3 class="titulo2">
+				Diseñamos nuestros servicios pensando en acompañarte desde el
+				diagnóstico hasta la implementación
+			</h3>
+			<div class="contentTarjetas">
+				<div class="contentTarjeta">
+					<div class="cardCapsul">
+						<div class="cardAni">
+							<div class="tarjeta frente">
+								<figure>
+									<Picture src={pulgar} alt="Pulgar" fallbackFormat="webp"/>
+								</figure>
+								<div class="globo">Gestión Ambiental</div>
+							</div>
+							<div class="tarjeta vuelta">
+								<div class="">
+									<h4>Gestión Ambiental</h4>
+									<ul>
+										<li>
+											Trámites federales ante SEMARNAT,
+											ASEA, SENER, CNE, etc.
+										</li>
+										<li>
+											Te damos seguimiento para mantenerte
+											en cumplimiento de las normas
+											ambientales.
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="contentTarjeta">
+					<div class="cardCapsul">
+						<div class="cardAni">
+							<div class="tarjeta frente">
+								<figure>
+									<Picture src={certificaciones} alt="Certificaciones" fallbackFormat="webp"/>
+								</figure>
+								<div class="globo">Sistemas de Gestión</div>
+							</div>
+							<div class="tarjeta vuelta">
+								<div class="">
+									<h4>Sistemas de Gestión</h4>
+									<ul>
+										<li>
+											Soporte, asesoría y capacitación en
+											sistemas ISO de gestión y
+											certificación.
+										</li>
+										<li>SASISOPA</li>
+										<li>SGM</li>
+										<li>ARSH</li>
+										<li>PRE</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="contentTarjeta">
+					<div class="cardCapsul">
+						<div class="cardAni">
+							<div class="tarjeta frente">
+								<figure>
+									<Picture src={junta} alt="Junta" fallbackFormat="webp"/>
+								</figure>
+								<div class="globo">Capacitación</div>
+							</div>
+							<div class="tarjeta vuelta">
+								<div class="">
+									<h4>Capacitación</h4>
+									<ul>
+										<li>
+											Cursos diseñados para tus
+											necesidades específicas
+										</li>
+										<li>
+											Modalidad presencial, remota o
+											híbrida
+										</li>
+										<li>
+											Entrenamiento en SASISOPA, ISO,
+											residuos, riesgo ambiental y más
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="contentTarjeta">
+					<div class="cardCapsul">
+						<div class="cardAni">
+							<div class="tarjeta frente">
+								<figure>
+									<Picture src={chica} alt="Chica" fallbackFormat="webp"/>
+								</figure>
+								<div class="globo">Asesoría</div>
+							</div>
+							<div class="tarjeta vuelta">
+								<div class="">
+									<h4>Gestión Ambiental</h4>
+									<ul>
+										<li>
+											Cuentas con nuestra amplia
+											experiencia para brindarte apoyo,
+											supervisar tus actividades, guiarte
+											sobre la soma de decisiones.
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="capsula reticula">
+			<h3 class="titulo2">En +8 años hemos dejado huella</h3>
+			<div class="boxInfo">
+				<div class="dato">
+					<div class="numero">
+						<FadeInOnScroll direccion="abajo" client:visible>+50</FadeInOnScroll>
+					</div>
+					<p class="valor">reactivaciones de negocios clausurados</p>
+				</div>
+				<div class="dato">
+					<div class="numero">
+						<FadeInOnScroll direccion="abajo" client:visible>+400</FadeInOnScroll>
+					</div>
+					<p class="valor">
+						implementaciones correctas de de SASISOPA
+					</p>
+				</div>
+				<div class="dato">
+					<div class="numero">
+						<FadeInOnScroll direccion="abajo" client:visible>+500</FadeInOnScroll>
+					</div>
+					<p class="valor">
+						planes de protocolos de respuestas a emergencias.
+					</p>
+				</div>
+				<div class="dato">
+					<div class="numero">
+						<FadeInOnScroll direccion="abajo" client:visible>+500</FadeInOnScroll>
+					</div>
+					<p class="valor">
+						establecimientos asesorados en manejo de residuos
+					</p>
+				</div>
+				<div class="dato">
+					<div class="numero">
+						<FadeInOnScroll direccion="abajo" client:visible>+900</FadeInOnScroll>
+					</div>
+					<p class="valor">verificaciones normativas ejecutadas</p>
+				</div>
+				<div class="dato">
+					<div class="numero">
+						<FadeInOnScroll direccion="abajo" client:visible>+600</FadeInOnScroll>
+					</div>
+					<p class="valor">
+						análisis de riesgo del sector hidrocarburos (ARSH)
+					</p>
+				</div>
+			</div>
+			
+			<figure class="pie">
+				<FadeInOnScroll direccion="derecha" client:visible>
+					<Picture src={huella} alt="Huella" fallbackFormat="webp"/>
+				</FadeInOnScroll>
+			</figure>
+			
+		</div>
+	</div>
+</article>

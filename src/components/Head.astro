@@ -1,0 +1,155 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  canonicalUrl: string;
+  ogImage: string;
+  jsonLd?: object;
+}
+
+const { title, description, canonicalUrl, ogImage, jsonLd } = Astro.props;
+
+const defaultJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${canonicalUrl}#organization`,
+      "name": "SCA | Especialistas en Gestión Ambiental Empresarial",
+      "url": canonicalUrl,
+      "logo": {
+        "@type": "ImageObject",
+        "@id": `${canonicalUrl}#logo`,
+        "url": `${canonicalUrl}assets/img/logo.png`,
+        "width": "300",
+        "height": "60",
+        "caption": "SCA"
+      },
+      "description": "Consultoría especializada en soluciones de gestión ambiental para empresas, cumplimiento normativo y desarrollo sostenible.",
+      "sameAs": [
+        "https://www.linkedin.com/company/tu-empresa",
+        "https://twitter.com/tu-empresa"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Dirección de la oficina",
+        "addressLocality": "Ciudad",
+        "addressRegion": "Región",
+        "postalCode": "Código Postal",
+        "addressCountry": "CL"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+56912345678",
+        "contactType": "Atención al cliente",
+        "email": "contacto@sca.cl",
+        "availableLanguage": "es"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${canonicalUrl}#webpage`,
+      "url": canonicalUrl,
+      "name": title,
+      "description": description,
+      "inLanguage": "es",
+      "primaryImageOfPage": {
+        "@id": ogImage
+      },
+      "isPartOf": {
+        "@id": `${canonicalUrl}#website`
+      },
+      "about": {
+        "@id": `${canonicalUrl}#organization`
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${canonicalUrl}#website`,
+      "url": canonicalUrl,
+      "name": "SCA Gestión Ambiental",
+      "description": "Expertos en consultoría ambiental empresarial",
+      "inLanguage": "es",
+      "publisher": {
+        "@id": `${canonicalUrl}#organization`
+      }
+    }
+  ]
+};
+const safeJsonLd = JSON.stringify(jsonLd || defaultJsonLd).replace(/<\/script>/g, '<\\/script>');
+
+---
+
+<meta charset="utf-8" />
+<meta http-equiv="X-DNS-Prefetch-Control" content="on" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+<!-- SEO básico -->
+<title>{title}</title>
+<meta name="description" content={description} />
+
+<!-- Canonical -->
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Favicon & App Icons -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="256x256" />
+
+<!-- Site Map -->
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<!-- Preconnect / Preload -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+<!--<link rel="preload" as="font" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="preload" as="font" href="/fonts/AvenirNextCyr-Bold.woff2" crossorigin />-->
+
+<!-- JSON-LD structured data -->
+<script type="application/ld+json" set:html={safeJsonLd} />
+
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:site_name" content="SCA" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:alt" content={`Portada del sitio web ${title}`} />
+
+<!-- Syles basic initial load, prevent flash scre -->
+<style is:inline>
+  @import url("https://use.typekit.net/aai3qbv.css");
+  @font-face {
+    font-family: "Nexa-Bold";
+    src: url("/fonts/NexaBold.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+  }
+  body {
+    margin: 0;
+  }
+  nav {
+    position: fixed;
+  }
+</style>
+
+<noscript>
+  <style is:inline>
+    .no-js-hide {
+      display: none;
+    }
+  </style>
+</noscript>
+
+<!-- Analytics / Tag Manager (async) -->
+<!-- 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXX');
+</script>
+-->

@@ -1,0 +1,37 @@
+---
+import NavMenu from '../components/NavMenu.svelte';
+
+const links = [
+  { label: 'Inicio',     href: '#slider'     },
+  { label: 'Servicios',  href: '#servicios'  },
+  { label: 'Nosotros',   href: '#elegirnos'  },
+  { label: 'Sectores',   href: '#sectores'   },
+  { label: 'Contacto',   href: '#contacto'   }
+];
+---
+<nav>
+	<div class="boxWrap">
+		<div class="capsula">
+			<div id="logotipo">
+				<a href="./" target="_parent" title="Ir al Home">
+					<figure>
+						<picture>
+							<source srcset="/img/logo.svg" />
+							<img
+								src="/img/logo.svg"
+								alt="SCA Logotipo"
+								width="120"
+								height="120"
+								loading="eager"
+								decoding="async"
+							/>
+						</picture>
+					</figure>
+				</a>
+			</div>
+			<div id="navs">
+				<NavMenu {links} client:load />
+			</div>
+		</div>
+	</div>
+</nav>

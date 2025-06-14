@@ -1,0 +1,116 @@
+---
+import { Image } from 'astro:assets';
+import SliderClient from "./SliderClient.jsx";
+import "./slider.css";
+
+export interface Slide {
+	img?: Image | string; // Image can be an Astro Image or a string URL
+	text?: string;
+	class?: string;
+	id?: string;
+	delay?: number;
+	nombre?: string; // For testimonials
+	puesto?: string; // For testimonials
+}
+
+export interface Props {
+	slides: Slide[];
+	defaultDelay?: number;
+	sliderId?: string;
+}
+
+const { slides, defaultDelay = 8000, sliderId = "testimoniosSlider" } = Astro.props;
+---
+
+<div class="sliderG" id={sliderId}>
+	<div class="slidesWrapper">
+		<!-- Clon del último slide al inicio -->
+		{
+			slides.length > 1 && (
+				<article class={`slide slide--clone ${slides.at(-1)?.class ?? ""}`}>
+					<figure class="slide__content">
+						<figcaption>
+							<p set:html={slides.at(-1).text} />
+							<div class="testUser">
+								<Image src={slides.at(-1).img} alt="slAntes" />
+								<p>
+									<span class="nombre">{slides.at(-1).nombre}</span>
+									<span class="puesto">{slides.at(-1).puesto}</span>
+								</p>
+							</div>
+						</figcaption>
+					</figure>
+				</article>
+			)
+		}
+
+		<!-- Slides reales -->
+		{
+			slides.map((slide, index) => (
+				<article class={`slide ${slide.class ?? ""}`} id={slide.id ?? undefined}>
+					<figure class="slide__content">
+						<figcaption>
+							<p set:html={slide.text} />
+							<div class="testUser">
+								<Image src={slide.img} alt="slAntes" />
+								<p>
+									<span class="nombre">{slide.nombre}</span>
+									<span class="puesto">{slide.puesto}</span>
+								</p>
+							</div>
+						</figcaption>
+					</figure>
+				</article>
+			))
+		}
+
+		<!-- Clon del primer slide al final -->
+		{
+			slides.length > 1 && (
+				<article class={`slide slide--clone ${slides[0]?.class ?? ""}`}>
+					<figure class="slide__content">
+						<figcaption>
+							<p set:html={slides[0].text} />
+							<div class="testUser">
+								<Image src={slides[0].img} alt="slAntes" />
+								<p>
+									<span class="nombre">{slides[0].nombre}</span>
+									<span class="puesto">{slides[0].puesto}</span>
+								</p>
+							</div>
+						</figcaption>
+					</figure>
+				</article>
+			)
+		}
+	</div>
+
+	<button class="nav nav--prev" aria-label="Anterior">
+		<img
+			src="/img/sliders/flecha_back_black.svg"
+			alt="back"
+			width="40"
+			height="40"
+			loading="eager"
+			decoding="async"
+		/>
+	</button>
+	<button class="nav nav--next" aria-label="Siguiente">
+		<img
+			src="/img/sliders/flecha_next_black.svg"
+			alt="next"
+			width="40"
+			height="40"
+			loading="eager"
+			decoding="async"
+		/>
+	</button>
+	<ul class="dots"></ul>
+</div>
+
+<SliderClient
+	client:load
+	id={sliderId}
+	slides={slides}
+	defaultDelay={defaultDelay}
+/>

@@ -1,24 +1,95 @@
-# build output
-dist/
-# generated types
-.astro/
+###############################################################################
+# 1. Archivos del sistema operativo y editores
+###############################################################################
+# macOS
+.DS_Store
+# Windows
+Thumbs.db
+desktop.ini
+# Linux/vi/emacs
+*~
+.*.sw[a-p]
+# IDEs comunes
+.idea/
+.vscode/
+*.sublime-*
+*.code-workspace
 
-# dependencies
+###############################################################################
+# 2. Archivos de configuración sensible
+###############################################################################
+.env
+.env.*
+.env_*
+!.env.example
+.env.backup
+.envrc
+*.key
+*.pem
+*.p12
+
+###############################################################################
+# 3. Dependencias y salidas de build (enfoque en npm/Vite)
+###############################################################################
+# Node
 node_modules/
+.npm
+.pnpm-store/
+.yarn/
+.yarn-cache/
+.pnp.*
+# Bundlers / frameworks front
+dist/
+build/
+.temp/
+.cache/
+.vite/
+*.map
+# Otros generados por Vite o herramientas similares
+__sapper__/
+.svelte-kit/
+.next/
+out/
+.turbo/
+.storybook-static/
 
-# logs
+###############################################################################
+# 4. Logs y archivos temporales
+###############################################################################
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+*.tmp
+*.bak
+tmp/
+temp/
 
 
-# environment variables
-.env
-.env.production
+###############################################################################
+# 5. Opcionales (activa según necesidad)
+###############################################################################
+# package-lock.json   # Si usas yarn/pnpm o prefieres no bloquear versiones
+# bun.lockb          # Si no usas Bun
+# composer.lock      # Solo para proyectos PHP
 
-# macOS-specific files
-.DS_Store
+###############################################################################
+# Archivos multimedia (video, audio, imágenes pesadas)
+###############################################################################
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm  # común en la web moderna
+*.mp3
+*.wav
+*.ogg
+*.jpg  # opcional: si no quieres imágenes en el repo
+*.png
+*.gif
+*.bmp
 
-# jetbrains setting folder
-.idea/
+
+# generated types
+.astro/
