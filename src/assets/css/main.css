@@ -457,6 +457,7 @@ div#ventanaPOP {
 .noRomperTexto{
 	white-space: nowrap;
 }
+
 main {
     width: 100%;
     min-width: 100%;
@@ -464,6 +465,11 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.minBox{
+	width: 100%;
+	height: auto;
+	min-height: 100vh;
 }
 #loadingBox{
 	width: 100%;
