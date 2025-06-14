@@ -1,0 +1,43 @@
+name: Deploy Astro to AWS
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  id-token: write   # OIDC
+  contents: read
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Install deps & build
+      run: |
+        npm ci
+        npm run build
+
+    - name: Configure AWS creds (OIDC)
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::437151405691:role/github-astro-deploy
+        aws-region: us-east-1   # basta con una; S3/CF son globales
+
+    - name: Sync to S3
+      run: |
+        aws s3 sync dist/ s3://astro-site-juan-2025/ --delete
+
+    - name: Invalidate CloudFront
+      run: |
+        aws cloudfront create-invalidation \
+          --distribution-id E338RE4NT2C66B \
+          --paths "/_astro/*" "/index.html" "/en-construccion/" "/img" "/js" "/politicas-privacidad" "/videos" "/sitemap-0.xml" "/sitemap-index.xml"
