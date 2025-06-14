@@ -77,19 +77,18 @@ temp/
 ###############################################################################
 # Archivos multimedia (video, audio, imágenes pesadas)
 ###############################################################################
-*.mp4
-*.mov
-*.avi
-*.mkv
-*.webm  # común en la web moderna
-*.mp3
-*.wav
-*.ogg
-*.jpg  # opcional: si no quieres imágenes en el repo
-*.png
-*.gif
-*.bmp
-
+#*.mp4
+#*.mov
+#*.avi
+#*.mkv
+#*.webm  # común en la web moderna
+#*.mp3
+#*.wav
+#*.ogg
+#*.jpg  # opcional: si no quieres imágenes en el repo
+#*.png
+#*.gif
+#*.bmp
 
 # generated types
 .astro/
