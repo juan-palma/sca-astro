@@ -30,7 +30,7 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v4
       with:
         role-to-assume: arn:aws:iam::437151405691:role/deploy-github
-        aws-region: mx-central-1   # basta con una; S3/CF son globales
+        aws-region: us-east-1   # basta con una; S3/CF son globales
 
     - name: Sync to S3
       run: |
