@@ -29,8 +29,8 @@ jobs:
     - name: Configure AWS creds (OIDC)
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        role-to-assume: arn:aws:iam::437151405691:role/github-astro-deploy
-        aws-region: us-east-1   # basta con una; S3/CF son globales
+        role-to-assume: arn:aws:iam::437151405691:role/deploy-github
+        aws-region: mx-contral-1   # basta con una; S3/CF son globales
 
     - name: Sync to S3
       run: |
@@ -40,4 +40,4 @@ jobs:
       run: |
         aws cloudfront create-invalidation \
           --distribution-id E338RE4NT2C66B \
-          --paths "/_astro/*" "/index.html" "/en-construccion/" "/img" "/js" "/politicas-privacidad" "/videos" "/sitemap-0.xml" "/sitemap-index.xml"
+          --paths "/_astro/*" "/index.html" "/en-construccion/" "/img" "/js" "/politicas-privacidad" "/sitemap-0.xml" "/sitemap-index.xml"
