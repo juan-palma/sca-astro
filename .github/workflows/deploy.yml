@@ -80,25 +80,23 @@ jobs:
       - name: Get OIDC token
         id: oidc
         run: |
-          # Imprime la URL y headers para debug (esto aparecerá en los logs)
-          echo "URL: ${ACTIONS_ID_TOKEN_REQUEST_URL}?audience=sts.amazonaws.com"
-          echo "Headers:"
-          echo "User-Agent: actions/oidc-client"
-          echo "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}"
-
-          # Solicita el token y lo guarda en una variable
-          OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}?audience=sts.amazonaws.com" \
+          # Obtiene el token y lo guarda en un archivo
+          curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}?audience=sts.amazonaws.com" \
             -H "User-Agent: actions/oidc-client" \
-            -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" | jq -r '.value')
-          
-          # Verifica si el token está vacío
-          if [ -z "$OIDC_TOKEN" ]; then
-            echo "::error::No se pudo obtener el token OIDC. Revisa los permisos del job."
-            exit 1
-          fi
+            -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+            -o token_response.json
 
-          # Muestra los primeros 50 caracteres del token (para verificar que existe)
-          echo "Token (partial): ${OIDC_TOKEN:0:50}..."
+          # Extrae el token del JSON
+          OIDC_TOKEN=$(jq -r '.value' token_response.json)
+          echo "Token length: ${#OIDC_TOKEN} characters"  # Muestra longitud sin revelar contenido
 
-          # Guarda el token en una variable de salida
+          # Guarda el token en una variable de salida (opcional)
           echo "OIDC_TOKEN=${OIDC_TOKEN}" >> $GITHUB_OUTPUT
+
+          # Opcional: Muestra un hash del token para verificar cambios entre ejecuciones
+          echo "Token SHA-256 hash: $(echo -n "$OIDC_TOKEN" | sha256sum | cut -d' ' -f1)"
+      - name: Upload token as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: oidc-token
+          path: token_response.json
