@@ -1,46 +1,47 @@
-#name: Deploy Astro to AWS
+name: Deploy Astro to AWS
 
-#on:
-#  push:
-#    branches: [ main ]
+on:
+  push:
+    branches: [ main ]
 
-#permissions:
-#  id-token: write   # OIDC
-#  contents: read
+permissions:
+  id-token: write   # OIDC
+  contents: read
 
-#jobs:
-#  build-deploy:
-#    runs-on: ubuntu-latest
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
 
-#    steps:
-#    - name: Checkout
-#      uses: actions/checkout@v4
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
 
-#    - name: Setup Node
-#      uses: actions/setup-node@v4
-#      with:
-#        node-version: 20
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
 
-#    - name: Install deps & build
-#      run: |
-#        npm ci
-#        npm run build
+    - name: Install deps & build
+      run: |
+        npm ci
+        npm run build
 
-#    - name: Configure AWS creds (OIDC)
-#      uses: aws-actions/configure-aws-credentials@v4
-#      with:
-#        role-to-assume: arn:aws:iam::437151405691:role/deploy-github
-#        aws-region: us-east-1   # basta con una; S3/CF son globales
+    - name: Configure AWS creds (OIDC)
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::437151405691:role/deploy-github
+        role-session-name: githubdeploy
+        aws-region: mx-central-1  # basta con una; S3/CF son globales
 
-#    - name: Sync to S3
-#      run: |
-#        aws s3 sync dist/ s3://astro-site-juan-2025/ --delete
+    - name: Sync to S3
+      run: |
+        aws s3 sync dist/ s3://astro-site-juan-2025/ --delete
 
-#    - name: Invalidate CloudFront
-#      run: |
-#        aws cloudfront create-invalidation \
-#          --distribution-id E338RE4NT2C66B \
-#          --paths "/_astro/*" "/index.html" "/en-construccion/" "/img" "/js" "/politicas-privacidad" "/sitemap-0.xml" "/sitemap-index.xml"
+    - name: Invalidate CloudFront
+      run: |
+        aws cloudfront create-invalidation \
+          --distribution-id E338RE4NT2C66B \
+          --paths "/_astro/*" "/index.html" "/en-construccion/" "/img" "/js" "/politicas-privacidad" "/sitemap-0.xml" "/sitemap-index.xml"
 
 
 
@@ -70,45 +71,45 @@
 
 
 
-name: Debug OIDC Token
-on: [push]
+#name: Debug OIDC Token
+#on: [push]
 
-permissions:
-  id-token: write
-  contents: read
+#permissions:
+#  id-token: write
+#  contents: read
 
-jobs:
-  debug-token:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get OIDC token
-        id: oidc
-        run: |
-          # Solicitar el token directamente con el audience correcto
-          OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com" \
-            -H "User-Agent: actions/oidc-client" \
-            -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
-            | jq -r '.value')
+#jobs:
+#  debug-token:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Get OIDC token
+#        id: oidc
+#        run: |
+#          # Solicitar el token directamente con el audience correcto
+#          OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com" \
+#            -H "User-Agent: actions/oidc-client" \
+#            -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+#            | jq -r '.value')
           
-          # Verificar que el token no esté vacío
-          if [ -z "$OIDC_TOKEN" ]; then
-            echo "::error::Failed to get OIDC token"
-            exit 1
-          fi
+#          # Verificar que el token no esté vacío
+#          if [ -z "$OIDC_TOKEN" ]; then
+#            echo "::error::Failed to get OIDC token"
+#            exit 1
+#          fi
 
-          # Guardar el token en un archivo
-          echo "$OIDC_TOKEN" > token.jwt
-          echo "Token length: ${#OIDC_TOKEN} characters"
+#          # Guardar el token en un archivo
+#          echo "$OIDC_TOKEN" > token.jwt
+#          echo "Token length: ${#OIDC_TOKEN} characters"
 
-          # Opcional: Verificar el contenido del token (solo para debug)
-          echo "Token content (audience):"
-          jq -R 'split(".") | .[1] | @base64d | fromjson | .aud' <<< "$OIDC_TOKEN"
+#          # Opcional: Verificar el contenido del token (solo para debug)
+#          echo "Token content (audience):"
+#          jq -R 'split(".") | .[1] | @base64d | fromjson | .aud' <<< "$OIDC_TOKEN"
 
-          # Guardar el token como output
-          echo "OIDC_TOKEN=${OIDC_TOKEN}" >> $GITHUB_OUTPUT
+#          # Guardar el token como output
+#          echo "OIDC_TOKEN=${OIDC_TOKEN}" >> $GITHUB_OUTPUT
 
-      - name: Upload token as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: oidc-token
-          path: token.jwt
+#      - name: Upload token as artifact
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: oidc-token
+#          path: token.jwt
