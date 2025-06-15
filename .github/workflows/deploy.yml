@@ -66,9 +66,23 @@
 #      - name: Verify
 #        run: aws sts get-caller-identity
 
+name: get Token
 
-- name: Get OIDC token
-  id: oidc
-  run: |
-    echo "OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" | jq -r '.value')" >> $GITHUB_OUTPUT
-    echo "OIDC_TOKEN=$OIDC_TOKEN" >> $GITHUB_ENV
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  id-token: write   # OIDC
+  contents: read
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Get OIDC token
+      id: oidc
+      run: |
+        echo "OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" | jq -r '.value')" >> $GITHUB_OUTPUT
+        echo "OIDC_TOKEN=$OIDC_TOKEN" >> $GITHUB_ENV
