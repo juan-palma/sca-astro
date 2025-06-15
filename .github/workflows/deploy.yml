@@ -44,24 +44,31 @@
 
 
 
-name: Test OIDC Connection
-on: [workflow_dispatch]
+#name: Test OIDC Connection
+#on: [workflow_dispatch]
 
-permissions:
-  id-token: write
-  contents: read
+#permissions:
+#  id-token: write
+#  contents: read
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+#jobs:
+#  test:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
       
-      - name: Configure AWS
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::437151405691:role/deploy-github
-          aws-region: us-east-1
+#      - name: Configure AWS
+#        uses: aws-actions/configure-aws-credentials@v4
+#        with:
+#          role-to-assume: arn:aws:iam::437151405691:role/deploy-github
+#          aws-region: us-east-1
           
-      - name: Verify
-        run: aws sts get-caller-identity
+#      - name: Verify
+#        run: aws sts get-caller-identity
+
+
+- name: Get OIDC token
+  id: oidc
+  run: |
+    echo "OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" | jq -r '.value')" >> $GITHUB_OUTPUT
+    echo "OIDC_TOKEN=$OIDC_TOKEN" >> $GITHUB_ENV
