@@ -70,37 +70,41 @@ name: Debug OIDC Token
 on: [push]
 
 permissions:
-  id-token: write  # Permiso para OIDC
-  contents: read   # Permiso para clonar el repo
+  id-token: write
+  contents: read
 
 jobs:
   debug-token:
     runs-on: ubuntu-latest
     steps:
-      - name: Get OIDC token with correct audience
+      - name: Get OIDC token
         id: oidc
         run: |
-          # Usa el endpoint específico para AWS (solución al problema del audience)
-          curl -sLS "https://token.actions.githubusercontent.com/.well-known/openid-configuration" \
-            | jq -r '.token_endpoint' \
-            | xargs -I {} curl -sLS "{}/?audience=sts.amazonaws.com" \
+          # Solicitar el token directamente con el audience correcto
+          OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com" \
             -H "User-Agent: actions/oidc-client" \
             -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
-            -o token_response.json
-
-          # Extrae el token y verifica el audience (debug)
-          OIDC_TOKEN=$(jq -r '.value' token_response.json)
-          echo "Token length: ${#OIDC_TOKEN} characters"
+            | jq -r '.value')
           
-          # Decodifica el token para verificar el audience (solo debug, no mostrar en producción)
+          # Verificar que el token no esté vacío
+          if [ -z "$OIDC_TOKEN" ]; then
+            echo "::error::Failed to get OIDC token"
+            exit 1
+          fi
+
+          # Guardar el token en un archivo
+          echo "$OIDC_TOKEN" > token.jwt
+          echo "Token length: ${#OIDC_TOKEN} characters"
+
+          # Opcional: Verificar el contenido del token (solo para debug)
           echo "Token content (audience):"
           jq -R 'split(".") | .[1] | @base64d | fromjson | .aud' <<< "$OIDC_TOKEN"
 
-          # Guarda el token en una variable de salida
+          # Guardar el token como output
           echo "OIDC_TOKEN=${OIDC_TOKEN}" >> $GITHUB_OUTPUT
 
       - name: Upload token as artifact
         uses: actions/upload-artifact@v4
         with:
           name: oidc-token
-          path: token_response.json
+          path: token.jwt
