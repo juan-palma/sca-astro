@@ -70,8 +70,8 @@ name: Debug OIDC Token
 on: [push]
 
 permissions:
-  id-token: write  # Necesario para obtener el token OIDC
-  contents: read   # Necesario para clonar el repo
+  id-token: write  # Permiso para OIDC
+  contents: read   # Permiso para clonar el repo
 
 jobs:
   debug-token:
@@ -80,23 +80,21 @@ jobs:
       - name: Get OIDC token
         id: oidc
         run: |
-          # Obtiene el token y lo guarda en un archivo
+          # Descarga el token y lo guarda en un archivo JSON
           curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}?audience=sts.amazonaws.com" \
             -H "User-Agent: actions/oidc-client" \
             -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
             -o token_response.json
 
-          # Extrae el token del JSON
+          # Extrae el token y muestra su longitud (sin revelarlo)
           OIDC_TOKEN=$(jq -r '.value' token_response.json)
-          echo "Token length: ${#OIDC_TOKEN} characters"  # Muestra longitud sin revelar contenido
+          echo "Token length: ${#OIDC_TOKEN} characters"
 
-          # Guarda el token en una variable de salida (opcional)
+          # Guarda el token en una variable de salida
           echo "OIDC_TOKEN=${OIDC_TOKEN}" >> $GITHUB_OUTPUT
 
-          # Opcional: Muestra un hash del token para verificar cambios entre ejecuciones
-          echo "Token SHA-256 hash: $(echo -n "$OIDC_TOKEN" | sha256sum | cut -d' ' -f1)"
       - name: Upload token as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # Versión corregida
         with:
           name: oidc-token
           path: token_response.json
