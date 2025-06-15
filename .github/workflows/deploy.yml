@@ -77,24 +77,30 @@ jobs:
   debug-token:
     runs-on: ubuntu-latest
     steps:
-      - name: Get OIDC token
+      - name: Get OIDC token with correct audience
         id: oidc
         run: |
-          # Descarga el token y lo guarda en un archivo JSON
-          curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}?audience=sts.amazonaws.com" \
+          # Usa el endpoint específico para AWS (solución al problema del audience)
+          curl -sLS "https://token.actions.githubusercontent.com/.well-known/openid-configuration" \
+            | jq -r '.token_endpoint' \
+            | xargs -I {} curl -sLS "{}/?audience=sts.amazonaws.com" \
             -H "User-Agent: actions/oidc-client" \
             -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
             -o token_response.json
 
-          # Extrae el token y muestra su longitud (sin revelarlo)
+          # Extrae el token y verifica el audience (debug)
           OIDC_TOKEN=$(jq -r '.value' token_response.json)
           echo "Token length: ${#OIDC_TOKEN} characters"
+          
+          # Decodifica el token para verificar el audience (solo debug, no mostrar en producción)
+          echo "Token content (audience):"
+          jq -R 'split(".") | .[1] | @base64d | fromjson | .aud' <<< "$OIDC_TOKEN"
 
           # Guarda el token en una variable de salida
           echo "OIDC_TOKEN=${OIDC_TOKEN}" >> $GITHUB_OUTPUT
 
       - name: Upload token as artifact
-        uses: actions/upload-artifact@v4  # Versión corregida
+        uses: actions/upload-artifact@v4
         with:
           name: oidc-token
           path: token_response.json
