@@ -17,33 +17,15 @@ const defaultJsonLd = {
       "@id": `${canonicalUrl}#organization`,
       "name": "SCA | Especialistas en Gestión Ambiental Empresarial",
       "url": canonicalUrl,
-      "logo": {
-        "@type": "ImageObject",
-        "@id": `${canonicalUrl}#logo`,
-        "url": `${canonicalUrl}assets/img/logo.png`,
-        "width": "300",
-        "height": "60",
-        "caption": "SCA"
-      },
-      "description": "Consultoría especializada en soluciones de gestión ambiental para empresas, cumplimiento normativo y desarrollo sostenible.",
-      "sameAs": [
-        "https://www.linkedin.com/company/tu-empresa",
-        "https://twitter.com/tu-empresa"
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Dirección de la oficina",
-        "addressLocality": "Ciudad",
-        "addressRegion": "Región",
-        "postalCode": "Código Postal",
-        "addressCountry": "CL"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+56912345678",
-        "contactType": "Atención al cliente",
-        "email": "contacto@sca.cl",
-        "availableLanguage": "es"
+      "logo": `${canonicalUrl}assets/img/logo.png`
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${canonicalUrl}#website`,
+      "url": canonicalUrl,
+      "name": "SCA Gestión Ambiental",
+      "publisher": {
+        "@id": `${canonicalUrl}#organization`
       }
     },
     {
@@ -51,27 +33,8 @@ const defaultJsonLd = {
       "@id": `${canonicalUrl}#webpage`,
       "url": canonicalUrl,
       "name": title,
-      "description": description,
-      "inLanguage": "es",
-      "primaryImageOfPage": {
-        "@id": ogImage
-      },
       "isPartOf": {
         "@id": `${canonicalUrl}#website`
-      },
-      "about": {
-        "@id": `${canonicalUrl}#organization`
-      }
-    },
-    {
-      "@type": "WebSite",
-      "@id": `${canonicalUrl}#website`,
-      "url": canonicalUrl,
-      "name": "SCA Gestión Ambiental",
-      "description": "Expertos en consultoría ambiental empresarial",
-      "inLanguage": "es",
-      "publisher": {
-        "@id": `${canonicalUrl}#organization`
       }
     }
   ]

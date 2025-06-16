@@ -41,7 +41,7 @@ jobs:
       run: |
         aws cloudfront create-invalidation \
           --distribution-id E338RE4NT2C66B \
-          --paths "/_astro/*" "/index.html" "/en-construccion/" "/img" "/js" "/politicas-privacidad" "/sitemap-0.xml" "/sitemap-index.xml"
+          --paths "/*"
 
 
 
