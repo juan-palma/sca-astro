@@ -5,7 +5,7 @@
 #::::::::
 
 nombre: Rebeca Olivares
-puesto: Gerente de Trámites Legales
+puesto: Gerente de trámites legales
 imagen: "t2"
 ---
 

@@ -1,7 +1,6 @@
 // src/utils/fx/fadeOnScroll.js
 import gsap from 'gsap';
 //import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
 //gsap.registerPlugin(ScrollTrigger);
 
 export function fadeOnScroll(selector = '.idaAniFade', scope = document) {

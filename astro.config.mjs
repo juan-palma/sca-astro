@@ -5,24 +5,20 @@ import preact from '@astrojs/preact';
 import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
+const siteURL = 'https://scadser.com.mx';
 export default defineConfig({
-  site: 'https://scadser.com.mx',
+    site: siteURL,
 
-  integrations: [
-      svelte(),
-      preact(),
-      sitemap({
-          filter: (page) =>
-          page !== 'https://scadser.com.mx/en-construccion/' &&
-          page !== 'https://scadser.com.mx/test/', 
-      })
-	],
-
-  image: {
-      experimentalLayout: 'constrained',
-  },
-
-  experimental: {
-      responsiveImages: true,
-  }
+    integrations: [
+        svelte(),
+        preact(),
+        sitemap({
+            filter: (page) =>
+                page !== `${siteURL}/en-construccion/` &&
+                page !== `${siteURL}/test/`,
+        })
+    ],
+    experimental: {
+        responsiveImages: true,
+    }
 });

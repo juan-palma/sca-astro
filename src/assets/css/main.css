@@ -1518,113 +1518,111 @@ main {
 						}
 	
 	/*:::: Contacto ::::*/
-	#contacto{
+	#contacto {
 		position: relative;
+		width: 100%;
+		height: fit-content;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		overflow: hidden;
 	}
-		#contacto > .fondoBox {
-			position: absolute;
-			width: 100vw;
-			min-height: 100%;
+		#contacto .contentFx {
+			position: relative;
+			flex: 1 1 100%;
+			width: 100%;
+			max-width: 100%;
+			height: fit-content;
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			overflow: hidden;
-			aspect-ratio: 650 / 303;
 		}
-			#contacto > .fondoBox > .fondo {
-				position: absolute;
-				min-width: 100vw;
-				height: 100%;
-				background: url('/src/assets/img/fondo_agua.webp') center 0vw no-repeat;
-				background-size: cover;
+			#contacto .contentFx .referencia {
+				position: relative;
 				aspect-ratio: 650 / 303;
-				mask-image: url('/img/mascara_ondas-doble-fondo.svg');
-				mask-mode: alpha;
-				mask-repeat: repeat-x;
-				mask-size: 199% 100%;
-				-webkit-mask-image: url('/img/mascara_ondas-doble-fondo.svg');
-				-webkit-mask-mode: alpha;
-				-webkit-mask-repeat: repeat-x;
-				-webkit-mask-size: 199% 100%;
-				mask-position: 0 0;
-				-webkit-mask-position: 0 0;
-				animation: slide-wave 34s linear infinite;
-				contain: layout paint style;
-				will-change:mask-position, -webkit-mask-position;
+				min-width: 100%;
+				height: fit-content;
+				display: flex;
+				justify-content: center;
+				align-items: center;
 			}
-
-			@keyframes slide-wave {
-				from {
-					mask-position:   0 0;
+				#contacto .contentFx .referencia > .fondo {
+					position: absolute;
+					min-width: auto;
+					height: 100%;
+					min-height: 100%;
+					background: url('/src/assets/img/fondo_agua.webp') center 0vw no-repeat;
+					background-size: cover;
+					aspect-ratio: 650 / 303;
+					mask-image: url('/img/mascara_ondas-doble-fondo.svg');
+					mask-mode: alpha;
+					mask-repeat: repeat-x;
+					mask-size: 199% 100%;
+					-webkit-mask-image: url('/img/mascara_ondas-doble-fondo.svg');
+					-webkit-mask-mode: alpha;
+					-webkit-mask-repeat: repeat-x;
+					-webkit-mask-size: 199% 100%;
+					mask-position: 0 0;
 					-webkit-mask-position: 0 0;
+					animation: slide-wave 34s linear infinite;
+					contain: layout paint style;
+					will-change:mask-position, -webkit-mask-position;
 				}
-				to {
-					mask-position:   -100% 0;
-					-webkit-mask-position: -100% 0;
-				}
-			}
-				#contacto > .fondoBox  > .fondo > figure{
-					visibility: hidden;
-					opacity: 0;
-					pointer-events: none;
-				}
-					#contacto > .fondoBox > .fondo > figure > picture > img{
-						width: auto;
-						height: 100%;
-						min-width: 100vw;
-					}
-					
-		#contacto > .boxWrap{
-			padding: 0px;
-		}
-			#contacto > .boxWrap > .capsula {
-				padding: calc(7vw + 7vh) 0;
-				transform: translateY(calc(3vw + 3vh));
-				grid-gap: 34px;
-			}
-				#contacto > .boxWrap > .capsula h3 {
-					font-size: 180%;
-					color: var(--colorTexto2);
-				}
-				#contacto > .boxWrap > .capsula .logoFooter {
-					width: 52px;
-				}
-				#contacto > .boxWrap > .capsula .boxCols {
+				#contacto .contentFx .referencia .boxInfo {
 					position: relative;
-					width: 100%;
+					flex: 1 1 100vw;
+					width: 100vw;
+					max-width: 1200px;
 					display: flex;
 					justify-content: center;
-					align-items: flex-end;
-					grid-gap: 34px;
+					align-items: center;
 				}
-					#contacto > .boxWrap > .capsula .boxCols > * {
-						flex: 1 1 calc(33.33% - (34px *2));
-						display: flex;
-						flex-direction: column;
-						flex-wrap: wrap;
-						justify-content: flex-end;
-						align-items: center;
-						color: var(--colorTexto2);
+					#contacto .boxInfo > .capsula {
+						padding: calc(6vw + 52px) 0 52px;
+						grid-gap: 34px;
 					}
-					#contacto > .boxWrap > .capsula .boxCols > .col1 {
-						align-items: flex-end;
-					}
-					#contacto > .boxWrap > .capsula .boxCols > .col2 {
-						text-align: center;
-						grid-gap: 24px;
-					}
-						#contacto > .boxWrap > .capsula .boxCols > .col2 h4 {
-							font-size: 130%;
+						#contacto .boxInfo > .capsula h3 {
+							font-size: 180%;
 							color: var(--colorTexto2);
 						}
-					#contacto > .boxWrap > .capsula .boxCols > .col3 {
-						align-items: flex-start;
-					}
-						#contacto > .boxWrap > .capsula .boxCols > .col3 .contacto {
-							display: flex;
-							grid-gap: 12px;
+						#contacto .boxInfo > .capsula .logoFooter {
+							width: 52px;
 						}
+						#contacto .boxInfo > .capsula .boxCols {
+							position: relative;
+							width: 100%;
+							display: flex;
+							justify-content: center;
+							align-items: flex-end;
+							grid-gap: 34px;
+						}
+							#contacto .boxInfo > .capsula .boxCols > * {
+								flex: 1 1 calc(33.33% - (34px *2));
+								display: flex;
+								flex-direction: column;
+								flex-wrap: wrap;
+								justify-content: flex-end;
+								align-items: center;
+								color: var(--colorTexto2);
+							}
+							#contacto .boxInfo > .capsula .boxCols > .col1 {
+								align-items: flex-end;
+							}
+							#contacto .boxInfo > .capsula .boxCols > .col2 {
+								text-align: center;
+								grid-gap: 24px;
+							}
+								#contacto .boxInfo > .capsula .boxCols > .col2 h4 {
+									font-size: 130%;
+									color: var(--colorTexto2);
+								}
+							#contacto .boxInfo > .capsula .boxCols > .col3 {
+								align-items: flex-start;
+							}
+								#contacto .boxInfo > .capsula .boxCols > .col3 .contacto {
+									display: flex;
+									grid-gap: 12px;
+								}
 
 /*::::::: Estilos HOME FIN ::::::*/
 
@@ -1638,8 +1636,6 @@ main {
 
 	footer {
 		width: 100%;
-		overflow: hidden;
-		margin-top: -3px;
 	}
 			footer .boxWrap {
 				padding: calc(111px + 2vh) 0px 54px;
@@ -2092,14 +2088,17 @@ button{
 	article#sectores .box .col .titulo2 {
 		font-size: 162%;
 	}
-	#contacto > .boxWrap > .capsula .boxCols {
-		flex-direction: column;
-		align-items: center !important;
-		text-align: center !important;
+	#contacto .boxInfo > .capsula {
+		padding: calc(6vw + 84px) 0 52px;
 	}
-	#contacto > .boxWrap > .capsula .boxCols > .col3 {
-		align-items: center;
-	}
+		#contacto .boxInfo > .capsula .boxCols {
+			flex-direction: column;
+			align-items: center !important;
+			text-align: center !important;
+		}
+			#contacto .boxInfo > .capsula .boxCols > .col3 {
+				align-items: center;
+			}
 	.powered-by {
 		height: auto;
 	}

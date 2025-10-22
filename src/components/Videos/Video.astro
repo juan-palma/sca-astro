@@ -3,6 +3,7 @@ const {
   type = 'local',      // 'local' | 'youtube' | 'external'
   src,
   poster = '',
+  controls = true,
   autoplay = false,
   loop = true,
   muted = true,
@@ -22,6 +23,7 @@ function ytId(u) {
 {type === 'local' && (
   <video
     src={src}
+    controls={controls}
     poster={poster}
     {autoplay}
     {loop}

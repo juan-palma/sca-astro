@@ -6,7 +6,7 @@
 
 
 nombre: Julián Salazar
-puesto: Director Área Legal
+puesto: Director área legal
 imagen: "t1"
 ---
 

@@ -6,6 +6,7 @@ import Head from "../components/Head.astro";
 import Scripts from "../components/Scripts.astro";
 import Loader from "../components/Loader.astro";
 import FadeOnScrollUtil from "../components/fx/FadeOnScrollUtil.svelte";
+import BtnWathsapp from "../components/utils/BtnWatsapp.svelte";
 
 // Props que pueden variar por página
 export interface Props {
@@ -48,5 +49,6 @@ const {
 		<Scripts {pageScripts} />
 
 		<FadeOnScrollUtil client:load />
+		<BtnWathsapp client:load />
 	</body>
 </html>
