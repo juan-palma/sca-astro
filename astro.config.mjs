@@ -19,6 +19,6 @@ export default defineConfig({
         })
     ],
     experimental: {
-        responsiveImages: true,
+        //responsiveImages: true,
     }
 });

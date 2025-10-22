@@ -1145,6 +1145,7 @@ main {
 	/*:::: elegirnos ::::*/
 	#elegirnos{
 		position: relative;
+		padding-top: 4%;
 	}
 		#elegirnos > .fondoBox {
 			position: absolute;
@@ -1318,9 +1319,9 @@ main {
 									}
 								#servicios .contentTarjetas > .contentTarjeta .cardCapsul .frente .globo {
 									position: absolute;
-									left: 6%;
+									left: 9%;
 									top: auto;
-									bottom: 6%;
+									bottom: 10%;
 								}
 							#servicios .contentTarjetas > .contentTarjeta .cardCapsul .vuelta {
 								position: relativa;
